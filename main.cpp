@@ -1,6 +1,7 @@
 #include <chrono>
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include <opencv2/videoio.hpp>
 #include <thread>
 
 using namespace cv;
@@ -15,7 +16,7 @@ string pixelToAcii(int pixel_intesity) {
 }
 
 int main() {
-	string video_path = "/home/bobby/personal/projects/video-to-ascii/vid5.mp4";
+	string video_path = "/home/bobby/Public/personal/projects/video-to-ascii/vid1.mp4";
 	VideoCapture cap(video_path);
 
 	if (!cap.isOpened()) {
@@ -27,8 +28,14 @@ int main() {
 	cout << fps << endl;
 
 	int fram_duration_ms = 1000 / fps;
+
 	int width = 150;
 	int height = 50;
+
+	int frame_width = cap.get(CAP_PROP_FRAME_WIDTH);
+	int frame_height = cap.get(CAP_PROP_FRAME_HEIGHT);
+
+	height = ((float)width * frame_height / frame_width) * 0.400;
 
 	Mat frame, gray_frame, resized_frame;
 	while (true) {
@@ -49,7 +56,7 @@ int main() {
 
 		system("clear");
 		cout << ascii_frame;
-		this_thread::sleep_for(chrono::milliseconds((int)fps));
+		this_thread::sleep_for(chrono::milliseconds(fram_duration_ms - 10));
 	}
 
 	return 0;
