@@ -10,13 +10,12 @@ using namespace std;
 string pixelToAcii(int pixel_intesity) {
 	// const string ASCII_CHAR = "@%#*+=-. ";
 	const string ASCII_CHAR = " .-+=*#%@";
-	// const string ASCII_CHAR = " 1";
 	string s = string(1, ASCII_CHAR[pixel_intesity * ASCII_CHAR.length() / 256]);
 	return s;
 }
 
 int main() {
-	string video_path = "/home/bobby/Public/personal/projects/video-to-ascii/vid1.mp4";
+	string video_path = "/home/bobby/Public/personal/projects/video-to-ascii/vid6.mp4";
 	VideoCapture cap(video_path);
 
 	if (!cap.isOpened()) {
